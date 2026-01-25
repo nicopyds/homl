@@ -21,8 +21,15 @@ La respuesta es que NO.
 
 El mundo de ML se puede "dividir" en varios grupos.
 1. Supervised (predecir el precio de una casa) vs Unsupervised Learning (segmentar unos clientes).
+   La diferencia clave es si le voy a guiar al algoritmo durante el entrenamiento.
 1. Online vs Batch Learning.
+   Si mi algoritmo puede aprende "poco a poco/on the fly" o en cambia necesitar un "batch" de ejemplos.
 1. Instance Based (KNN) vs Model Based Learning (DecisionTree).
+   Si voy a "aprender" una regla de los datos (model based) o bien lo que voy a hacer es "comprar" las instancias
+   a la hora de hacer una predicción.
+
+Estas técnicas en realidad no son excluyentes sino que un sistema de ML en producción podría una Red Neural que aprendió de
+ejemplos clasificados por personas (Supervisados) pero fue entrenado usando un método batch (Batch Learning).
 
 ¿Que es el Machine Learning?
 `Machine Learning`: es el arte y la ciencia de usar la programación para hacer que nuestras máquinas **APRENDAD DE LOS DATOS**.
@@ -86,22 +93,19 @@ En resumen, Machine Learning es bueno para este tipo de problemas:
 1. Problemas donde las técnicas tradicionales no danel resultado esperado. Puede ser que un modelo de ML de una mejor solución.
 1. Descubrir los patrones en los datos gracias al ML.
 
+Aplicaciones prácticas de Machine Learning.
+1. Analizar imágenes en una línea de producción y determinar si tienen o no defecto (CNN, Vision Transformer etc).
+1. Chatbot (NLP, RNN, Transformer).
+1. Predecir las ventas futuras de una empresa teniendo en cuenta ciertas variables (RandomForest, Redes Neuronales, ARIMA, RNN, Transfomer).
+1. Reducir la dimensionalidad de tu dataset para hacer un análisis más rápido (PCA, KMeans).
+1. Cluster a tus clientes (DBSCAN, KMeans, Hierarchical Clustering).
+1. Detectar fraude (IsolationForest, CatBoost, Red Neuronal).
+1. Text summarization (Transformer).
+1. Entrenar un agente a que juegue a un juego (Reinforcement Learning).
+1. Recomendar productos/vídeos/feed a un cliente: personalización (Collaborative Filtering).
 
+HAY UN MONTÓN DE APLICACIONES PRÁCTICAS DE MACHINE LEARNING ADEMÁS DEL CHATGPT.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Aprendizaje Supervisado
 
 
