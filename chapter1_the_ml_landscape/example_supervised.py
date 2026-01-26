@@ -10,10 +10,23 @@ from sklearn.datasets import make_classification
 def get_X_y():
     X, y = make_classification()
 
+    # Esta matriz X son nuestras variables del dataset
+    # Estas variables/atributos/características
+    # una empresa las recopila y guarda en las BBDD
+    # Puede ser Edad, Altura, Nómina, sus hábitos de gastos etc etc etc
+    # Normalmente estas features los generan los Data Scientists
     X = pd.DataFrame(data=X).iloc[:, :5]
     X.columns = ["Edad", "Altura", "Peso", "Nómina", "Sexo"]
     print(f"Yo tengo aquí un dataset (features) y es {X.head(5)}")
 
+    # Esta matriz/vector y es nuestro target
+    # Es lo que queremos que nuestro modelo aprenda
+    # Este target también provienen de una BBDD
+    # Por ejemplo: si yo detectar fraude
+    # puedo mirar en mi BBDD aquellas operaciones que han sido
+    # reportadas como fraude por parte de otros usuarios
+    # y el Data Scientist va a construir el indicar de 1 (fraude)
+    # 0 (no fraude) y es lo que vamos a suministrar a nuestro modelo
     y = pd.DataFrame(data=y)
     y.columns = ["Target"]
     print(

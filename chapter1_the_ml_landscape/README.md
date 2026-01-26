@@ -108,4 +108,50 @@ HAY UN MONTÓN DE APLICACIONES PRÁCTICAS DE MACHINE LEARNING ADEMÁS DEL CHATGP
 
 Aprendizaje Supervisado
 
+El punto clave para ML Supervisado es la existencia de un target.
+En el ejemplo del fichero example_supervised.py el target en nuestra caso es el dataset
+llamado `y` y nuestra matrix `X` son nuestras variables.
+
+`X`: se llaman features, variables, atributos.
+`y`: se llaman labels, target, éxito.
+
+El target en problemas supervisados puede ser tanto binario (1 - 0: fraude -
+no fraude) como números continuos (- infinito - + infinito: predecir
+precio de un activo, el número de ventas que tendrás etc etc etc).
+
+Dicho lo anterior, podemos tener problemas de Aprendizaje Supervisado de 
+Clasificación o Regresión.
+
+Aprendizaje No Supervisado
+
+En el aprendizaje no supervisado no existe el target `y`, sólo disponemos de
+features.
+
+`X`: se llaman features, variables, atributos.
+`y`: NO EXISTE.
+
+Cuando quieres DESCUBRIR tus datos. Dejas hablar a los datos.
+Por ejemplo: tengo clientes que visitan mi página web y me gustaría segmentar
+a estos clientes en diferentes grupos para personalizar su página web.
+
+Una tarea relacionada con Aprendizaje No Supervisado son las técnicas
+de `reducción de la dimensionalidad` (si yo tengo una dataset muy grande (miles de columnas)
+como puedo yo "entender" mi dataset de manera más rapida).
+Esto se consigue, "proyectando" tu dataset a menos dismensiones (se parece
+como una algoritmo de compresión tipo .zip pero no es loseless).
+¡ HAY PÉRDIDA DE INFORMACIÓN !
+
+A veces puede ser buena idea, ejecutar una reducción de la dimensionalidad
+antes de entrenar un modelo final de clasificaicón o regresión.
+Irá más rápido, ocupará menos espacion y/o puede mejorar el resultado.
+
+CUANDO ES MALA IDEA: si trabajas en un entorno regulado y ojo que a veces
+la pérdida de información puede ser muy relevante.
+¡No toméis el ejemplo de [example_dimensionality_reduction.py](./example_dimensionality_reduction.py)
+como ejemplo, los datasets de la vida real son mucho más complejos!
+
+
+
+
+
 
