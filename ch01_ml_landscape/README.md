@@ -256,7 +256,8 @@ Por ejemplo: alguien intenta engañar a un sistema de spam o de búsqueda.
 En estos casos, es importante monitorizar nuestro sistema y cuando su performance baja, apagar el aprendizaje online y cambiar a la versión
 anterior.
 
-Lo mismo debemos hacer con los datos, monitorizar y detectar outliers (por ejemplo con un algoritmo de `Anomaly Detection`)Uno de los principales retos de online learning es mostrarle datos malos cuando está en producción y hacer que su performace baje.
+Lo mismo debemos hacer con los datos, monitorizar y detectar outliers (por ejemplo con un algoritmo de `Anomaly Detection`)
+Uno de los principales retos de online learning es mostrarle datos malos cuando está en producción y hacer que su performace baje.
 Por ejemplo: alguien intenta engañar a un sistema de spam o de búsqueda.
 
 En estos casos, es importante monitorizar nuestro sistema y cuando su performance baja, apagar el aprendizaje online y cambiar a la versión
