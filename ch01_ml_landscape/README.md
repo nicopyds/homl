@@ -136,7 +136,7 @@ a estos clientes en diferentes grupos para personalizar su página web.
 
 Una tarea relacionada con Aprendizaje No Supervisado son las técnicas
 de `reducción de la dimensionalidad` (si yo tengo una dataset muy grande (miles de columnas)
-como puedo yo "entender" mi dataset de manera más rapida).
+como puedo yo "entender" mi dataset de manera más rápida).
 Esto se consigue, "proyectando" tu dataset a menos dismensiones (se parece
 como una algoritmo de compresión tipo .zip pero no es loseless).
 ¡ HAY PÉRDIDA DE INFORMACIÓN !
@@ -149,6 +149,73 @@ CUANDO ES MALA IDEA: si trabajas en un entorno regulado y ojo que a veces
 la pérdida de información puede ser muy relevante.
 ¡No toméis el ejemplo de [example_dimensionality_reduction.py](./example_dimensionality_reduction.py)
 como ejemplo, los datasets de la vida real son mucho más complejos!
+
+*Normlamente, se usan algorimtos de Unsupervised Learning y/o Reducción de la dimensionalidad como un paso
+intermedio en un proyecto de Data Science. (Muchas veces no es el fin en si mismo, sino un medio).*
+
+---
+
+Dentro del mundo de Aprendizaje no Supervisado tenemos "Anomaly Detection" que consiste en encontrar instancias "raras/anómalas" 
+dentro de tu dataset. 
+
+Básicamente estos algoritmos, durante el entrenamiento (fit) aprenden a reconocer los patrones "normales/habituales" y cuando
+se le muestra nuevas instancias, el algoritmo determina si es o no "anólama" (un ejemplo sería el IsolationForest).
+
+Para más información pueden leer esta [página web](https://scikit-learn.org/stable/modules/outlier_detection.html).
+
+---
+
+Una tarea muy parecida a la anterior es "Novelty Detection". El funcionamiento es muy parecido, durante el fit del modelo
+el dataset debe ser muy "limpio" (no debe contener cosas "raros"). De esta manera, el modelo aprende las características de 
+las instancias "habituales" y luego es capaz de detectar cualquier novedad.
+
+Por último, tenemos "Association Rule Learning": sirve para analizar grandes volumenes de datos. Un posible caso de uso sería: 
+le muestras las ventas de tu tienda al algoritmo y el aprende que cuando se compra salsa barcaboca y patatas chips también se compra
+carne. El algoritmo te ayuda en este caso a repensar la distribuciónd de los artículos en la tienda (ponerlos más cerca uno del otro).
+
+---
+Semi-supervised Learning: etiquetar los datos en la vida real es muy costoso por este motivo es muy habitual encontrarse con muchos
+datos que no tienen el "target" o la "etiqueta". 
+
+No obstante, tu sí que podrías etiquetar unas pocas instancias. Una vez que haces esto, estas etiquetas se pueden propagar al resto
+de instancias que el algoritmo detecta que son iguales.
+
+Ejemplo: subes un montón de fotos a Google Foto y un algoritmo no supervisado detecta que la persona A aparece en la foto 1, 2, 33.
+Con etiquetar 1 vez esta persona, el algoritmo automáticamente las clasifica a todas. De esta manera podemos llegar a etiquetar todas las
+fotos muy rápido y posteriomente utilizar una algoritmo supervisado.
+
+---
+
+Self-supervised Learning: el propio algoritmo aprende a etiquetar los datos.
+Por ejemplo: supongamos que tenemos un montón de fotos con diferentes mascotas. Podemos manipular las fotos y ocultar parte de las fotos.
+De esta manera, podemos llegar a entrenar un algoritmo que debe aprender a reconstruir esta foto. 
+
+El input en el algoritmo es la foto con una parte oculta y el target es la foto original.
+Cuando entrenamos el algoritmo, el será capaz de distinguir entre diferentes mascotas. 
+
+Posteriormente puedes llegar a "especializar" el algoritmo en predecir las diferentes tipos de mascotas. 
+Tendrás que suministrar fotos etiquetadas con perros, gatos, peces etc, pero la cantidad será mucho menor porque el algoritmo ya
+sabe que es cada mascota (porque cuando reconstruye la foto de un gato no le pone la cara de un perro).
+
+Básicamente estamos usando una técnica de "Transfer Learning".
+
+ChatGPT es un modelo self-supervised porque durante el entrenamiento parte del texto que se muestra al algoritmo está reemplazado/oculto
+y el modelo debe aprender a predecir la palabra más probable.
+
+En cierto aspecto, self-supervised se parece mucho a tareas supervisadas (se usa en clasificación o regresión) pero también se parece
+a no supervisado (porque usas datasets sin etiquetas). Por este motivo es mejor dejarlo en su propia categoría.
+
+---
+Reinforcement learning: es una bestia aparte. En el contexto de RF, hay un agente que interactua con el ambiente y nosotros le damos
+feedback. Cuando el agente hace algo malo se le penaliza y cuando hace una tarea bien se le da un premio. De esta manera el algoritmo
+aprende por si sólo cual es la mejor decisión.
+
+Ejemplo de algoritmos de RF: [AlphaGo](https://es.wikipedia.org/wiki/AlphaGo#cite_note-1) el algoritmo aprende a jugar al juego de Go por
+su cuenta (tras millones de partidas) y muy rápidamente es capaz de ganar a los mejores
+[jugadores del mundo](https://www.youtube.com/watch?v=WXuK6gekU1Y&list=PLqYmG7hTraZBy7J_4ynYPc0Ml1RUGcLmD&index=1).
+
+
+
 
 
 
