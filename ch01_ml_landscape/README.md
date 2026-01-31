@@ -206,13 +206,67 @@ En cierto aspecto, self-supervised se parece mucho a tareas supervisadas (se usa
 a no supervisado (porque usas datasets sin etiquetas). Por este motivo es mejor dejarlo en su propia categoría.
 
 ---
-Reinforcement learning: es una bestia aparte. En el contexto de RF, hay un agente que interactua con el ambiente y nosotros le damos
-feedback. Cuando el agente hace algo malo se le penaliza y cuando hace una tarea bien se le da un premio. De esta manera el algoritmo
-aprende por si sólo cual es la mejor decisión.
+Reinforcement learning: es una bestia aparte. En el contexto de RF, hay un agente (agent) que interactua con el ambiente y nosotros le damos
+feedback. Cuando el agente hace algo malo se le penaliza (penalty) y cuando hace una tarea bien se le da un premio (reward).
+De esta manera el algoritmo aprende por si sólo cual es la mejor decisión a tomar en cada situación (policy).
 
 Ejemplo de algoritmos de RF: [AlphaGo](https://es.wikipedia.org/wiki/AlphaGo#cite_note-1) el algoritmo aprende a jugar al juego de Go por
 su cuenta (tras millones de partidas) y muy rápidamente es capaz de ganar a los mejores
 [jugadores del mundo](https://www.youtube.com/watch?v=WXuK6gekU1Y&list=PLqYmG7hTraZBy7J_4ynYPc0Ml1RUGcLmD&index=1).
+
+---
+Otra forma de clasificar los sistemas de Machine Learning es `online` vs `batch`.
+
+Un algoritmo online es capaz de aprender de un flujo de datos (por ejemplo a través de Gradient Descend).
+Otros en cambio sólo puede aprender usando el dataset completo (batch) (por ejemplo Randon Forest).
+
+---
+Batch Learning: le muestras al modelo todos los datos que tienes disponibles para que aprenda.
+Pasado el train, el modelo se despliega en producción y en este caso ya no se le muestra nuevos ejemplos (para que se actualice).
+Sólo predice lo que había visto en el dataset de train. Muchas veces, este tipo de soluciones sirve para la mayoría de los casos. 
+
+Ahora bien, algunas limitaciones de este enfoque:
+1. Por lo general, los modelos se deterioran en producción con el tiempo (el mundo sigue cambiando). En este caso, si detectamos que hay
+   `data drift/model rot` debemos reentrenar nuestro algoritmo con los datos viejos y con los datos nuevos.
+1. Si me modelo debe trabajar con entornos muy cambiantes (predecir la bolsa), quizás no es el mejor enforque porque tendré que reentrenar
+   muy a menudo mi modelo y esto lleva tiempo y cuesta dinero.
+1. Entrenar este tipo de modelos es muy costoso porque implica grandes volumenes de datos y por lo tanto CPU, memoria etc. 
+1. Si mi modelo se debe desplegar en un edge device (smartphone) cuando tenga que reentenar mi model, también tengo que tener los datos
+   originales. Esto por lo tanto consumirá mucho espacio en el dispositivo y no es lo ideal.
+
+---
+Un sistema online es aquel que aprende o bien de un flujo de 1 instancia o bien de un mini grupo de instancias (llamados mini-batches).
+Una de las ventajas principales es que puedes aprender de datasets masivos que no caben en memoria (out of core learning).
+Una técnica de online learning es [gradient descent](https://en.wikipedia.org/wiki/Gradient_descent) pero hay otras.
+
+Normalmente, se entrena un modelo en un entorno offline (pero puede ser con mini batches) y se despliega en producción pero el modelo
+se actualiza (en producción) con los nuevos datos que ve.
+
+Por ejemplo: un sistema de detección de spam, ve nuevos ejemplos de spam y se actualiza online.
+
+Uno de los paramétros clave es la `learning rate` es una paramétro que le dice al modelo "como de rápido se tiene que actualizar a los
+nuevos datos".
+
+Si le pones `lr` alta, el modelo se actualiza muy rápido a los nuevos datos y se olvida de los viejos (se llama Catastrophic Forgetting).
+Si le pones `lr` baja, el modelo tiene más inercia y se actualiza poco a poco. 
+
+Uno de los principales retos de online learning es mostrarle datos malos cuando está en producción y hacer que su performace baje.
+Por ejemplo: alguien intenta engañar a un sistema de spam o de búsqueda.
+
+En estos casos, es importante monitorizar nuestro sistema y cuando su performance baja, apagar el aprendizaje online y cambiar a la versión
+anterior.
+
+Lo mismo debemos hacer con los datos, monitorizar y detectar outliers (por ejemplo con un algoritmo de `Anomaly Detection`)Uno de los principales retos de online learning es mostrarle datos malos cuando está en producción y hacer que su performace baje.
+Por ejemplo: alguien intenta engañar a un sistema de spam o de búsqueda.
+
+En estos casos, es importante monitorizar nuestro sistema y cuando su performance baja, apagar el aprendizaje online y cambiar a la versión
+anterior.
+
+Lo mismo debemos hacer con los datos, monitorizar y detectar outliers (por ejemplo con un algoritmo de `Anomaly Detection`).
+
+
+
+
 
 
 
