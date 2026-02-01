@@ -206,7 +206,7 @@ En cierto aspecto, self-supervised se parece mucho a tareas supervisadas (se usa
 a no supervisado (porque usas datasets sin etiquetas). Por este motivo es mejor dejarlo en su propia categoría.
 
 ---
-Reinforcement learning: es una bestia aparte. En el contexto de RF, hay un agente (agent) que interactua con el ambiente y nosotros le damos
+Reinforcement Learning: es una bestia aparte. En el contexto de RF, hay un agente (agent) que interactua con el ambiente y nosotros le damos
 feedback. Cuando el agente hace algo malo se le penaliza (penalty) y cuando hace una tarea bien se le da un premio (reward).
 De esta manera el algoritmo aprende por si sólo cual es la mejor decisión a tomar en cada situación (policy).
 
@@ -265,6 +265,21 @@ anterior.
 
 Lo mismo debemos hacer con los datos, monitorizar y detectar outliers (por ejemplo con un algoritmo de `Anomaly Detection`).
 
+---
+Otra forma de clasificar los sistemas de ML es en función de su forma de generalizar.
+
+En este aspecto tenemos 2 grande grupos: aprendizaje basado en instancias (Instance Based) y aprendizaje basado en modelos (Model Based).
+
+Un ejemplo de aprendizaje basado en instancias lo tenemos en [este script](./example_instance_based_learning.py) y un ejemplo de
+Model Based learning es [este otro script](./example_supervised.py).
+
+La diferencia principal entre Instance Based y Model Based consiste en que en el primer caso, nos basamos en una [métrica de similitud](https://es.wikipedia.org/wiki/Medida_de_similitud)
+a la hora de clasificar o predecir.
+
+Debido a esto, para clasificar necesitamos el dataset de "entrenamiento/origen" para poder calcular la similitud y asignar esta etiqueta.
+Mientras que en el Model Based, tenemos un algoritmo que "aprendió" las relaciones durante el entrenamiento y es capaz de utilizar este
+conocimiento para clasificar/predecir nuevas instancias. NO necesitas el dataset de origen y su deploy y escalabilidad es mucho más fácil.
+Ver el [script de regresión linear](./example_happiness.py)
 
 
 
@@ -275,5 +290,4 @@ Lo mismo debemos hacer con los datos, monitorizar y detectar outliers (por ejemp
 
 
 
-
-
+./example_happiness.p
