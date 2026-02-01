@@ -281,8 +281,27 @@ Mientras que en el Model Based, tenemos un algoritmo que "aprendió" las relacio
 conocimiento para clasificar/predecir nuevas instancias. NO necesitas el dataset de origen y su deploy y escalabilidad es mucho más fácil.
 Ver el [script de regresión linear](./example_happiness.py)
 
+Cuando tienes un modelo entrenado y haces una predicción con nuevos datos (nuevas instancias) se llama `inferencia`.
 
+---
+Retos de un proyecto de Machine Learning
 
+Los principales retos son: `malos datos` o `malos modelos`.
+
+Retos de lado de los datos:
+1. Datos insuficientes: según este [paper de 2001](https://ismailouahbi.medium.com/data-related-problems-ml-part-i-b59a49d947ea) diferentes
+   algoritmos acaban teniendo un resultado muy parecido siempre y cuando le suministras la cantidad necesaria de los datos.
+   [Paper original](https://dl.acm.org/doi/10.3115/1073012.1073017)
+1. Datos no representativos: si nuestros datos de entrenamiento no contienen todos los ejemplos que queremos que el modelo generalice.
+   Puede llegar a pasar que cuando haces una predicción tu modelo se "queda corto" porque no ha visto este tipo de ejemplos.
+   Por ejemplo: si en nuestro [script ./example_happiness.py](./example_happiness.py) hubiesemos cogido para entrenar únicamente países 
+   "ni muy pobres ni muy ricos" el modelo no sería capaz de hacer buenas predicciones para países muy pobres o muy ricos.
+   Si tienes pocos datos puedes llegar a tener "sampling noise" y si tienes muchos datos, también te puede pasar que tu dataset no es
+   representativo porque contiene "sampling biase".
+   
+   Uno de los ejemplos más famosos de "sampling biase" es la campaña electoral de [EEUU en 1936](https://en.wikipedia.org/wiki/1936_United_States_presidential_election)
+
+   
 
 
 
