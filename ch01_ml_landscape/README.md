@@ -372,7 +372,7 @@ En cambio, si usamos este validation/development set, podemos hacer todas las pr
 En resumen:
 Tengo un dataset de 100 filas. Lo separo en:
    1. Train set: se usa para entrenar el modelo (por ejemplo 70 filas). Se puede consultar muchas veces.
-   1. Validaiton set: se usa para elegir entre un algoritmo u otro y sus hiperparams (10 filas).  Se puede consultar muchas veces.
+   1. Validation set: se usa para elegir entre un algoritmo u otro y sus hiperparams (10 filas).  Se puede consultar muchas veces.
    1. Test set: se usa SÓLO para comprobar que el modelo generaliza bien. Se deben consultar muy pocas veces..
 
 En la práctica, cuando eliges el algoritmo y sus params (usando el dataset de train y validation), volverás a entrenar tu modelo sobre un dataset que contiene X_train y X_validation (80 filas).
@@ -381,5 +381,32 @@ Esto le puede ayudar a mejorar un poco más al modelo.
 Nunca debemos usar el X_test para elegir, entrenar o tunear nuestro modelo. Sólo lo usamos para ver que generaliza bien.
 
 ![Model selection with holdout dataset](./images/ch01_model_selection.png)
+
+Podemos llegar a tener otro problema: ¿como podemos saber si un modelo funciona mal por temas de hiperparámetros o es un tema de datos?
+La regla de oro es tener en tu dataset de validation y test los datos más cercanos a "producción".
+La solución sería usar otro dataset llamado `train-dev set`.
+Tengo un dataset de 100 filas. Lo separo en:
+   1. Train set: se usa para entrenar el modelo (por ejemplo 60 filas). Se puede consultar muchas veces.
+   1. Train dev set: se usa para descartar si tenemos un problema de paramétros o data mismatch.
+      Si después de entrenar un modelo, este se comporta mal sobre el train-dev set, significa que hemos overfitteado nuestro modelo.
+      Vuelvo al train set para ir ajustando sus paramétros. Se puede consultar muchas veces.
+   1. Validation set: si mi modelo se comporta mal sobre este dataset, significa que tengo un data mismatch. (10 filas).
+      La solcuión sería preprocesar los datos para que se ajuste lo mejor posible a los datos en producción. Se puede consultar muchas veces.
+   1. Test set: se usa SÓLO para comprobar que el modelo generaliza bien. Se deben consultar muy pocas veces.
+![Train-dev set](./images/ch01_train_dev_set.png)
+
+---
+**No Free Lunch Theorem**
+Nuestros modelos son una simplificación de la realidad.
+En este aspecto, muchas veces asumimos ciertas cosas los datos y el problema que intentamos resolver.
+Si eliges un modelo lineal, significa que asumes que la distancia entre tus datos y la recta es puro "ruido".
+En el paper [de David Wolpert](https://direct.mit.edu/neco/article-abstract/8/7/1341/6016/The-Lack-of-A-Priori-Distinctions-Between-Learning?redirectedFrom=fulltext)
+el autor demuestra que si no haces ninguna asunción sobre los datos, te debería dar igual elegir un modelo u otro.
+No hay ningún modelo que a priori sabes que va a funcionar mejor que otro para este dataset.
+Esto significa que vamos a tirar todos los modelos y elegimos el mejor. En práctica esto no se puede hacer (tardaríamos mucho tiempo).
+Por este motivo, asumes ciertas cosas y vas a evaluar únicamente algunos algoritmos.
+Para problemas sencillos vas a usar un modelo lineal y para problemas más complejos, una red neuronal.
+
+Fin del capítulo 1
 
 
