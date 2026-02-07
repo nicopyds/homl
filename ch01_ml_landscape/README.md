@@ -286,7 +286,7 @@ Cuando tienes un modelo entrenado y haces una predicción con nuevos datos (nuev
 ---
 Retos de un proyecto de Machine Learning
 
-Los principales retos son: `malos datos` o `malos modelos`.
+Los principales retos son: `malos datos` o `malos algoritmos`.
 
 Retos de lado de los datos:
 1. Datos insuficientes: según este [paper de 2001](https://ismailouahbi.medium.com/data-related-problems-ml-part-i-b59a49d947ea) diferentes
@@ -298,15 +298,88 @@ Retos de lado de los datos:
    "ni muy pobres ni muy ricos" el modelo no sería capaz de hacer buenas predicciones para países muy pobres o muy ricos.
    Si tienes pocos datos puedes llegar a tener "sampling noise" y si tienes muchos datos, también te puede pasar que tu dataset no es
    representativo porque contiene "sampling biase".
-   
    Uno de los ejemplos más famosos de "sampling biase" es la campaña electoral de [EEUU en 1936](https://en.wikipedia.org/wiki/1936_United_States_presidential_election)
+1. Problemas de Data Quality. Ejemplos cuando tenemos que lidiar con temas de data quality: outliers y/o valores nulos.
+1. Varialbes/Datos irrelevantes. `Gargabe In, Gargabe Out`: debemos poner mucho cuidado en las variables que vamos a usar.
+   Si nuestro dataset contiene muchas variables que no son relevantes, el modelo podría no ser capaz de aprender los patrones que nos interesan.
+   Al rescate viene el Feature Engineering que consiste en:
+      1. Feature Selection: elige las mejores variables dentro de las disponibles para entrenar tu modelo.
+      1. Feature Extraction: combina las variables para crear nuevas y más útiles.
+      1. Create nuevas variables obteniendo más datos.
 
-   
+Retos de lado de los algoritmos:
+1. Overfitting: cuando el modelo memoriza el dataset de entrenamiento y no es capaz de generalizar bien. 
+   Un ejemplo sería que en nuestro modelo de [script de regresión linear](./example_happiness.py) vamos a meter el nombre del país como feature.
+   Un modelo complejo, podría detectar que cuando tenemos `w` en el nombre del país (New Zealand, Norway, Sweden etc)
+   la calidad de vida es muy alta. No obstante, esto es "puro ruido" en los datos (la presencia de `w` en el nombre del país no significa que sus habitantes van
+   a ser más felices) pero el modelo de no lo sabe y acaba aprendiendo este "ruido" de los datos.
+   En este caso, no podrá predecir bien la "felicidad" en un país como `Rwanda` y/o `Zimbabwe`.
+   Algunos remedios:
+      1. Simplifa el modelo.
+      1. Añade restricciones al modelo (L1 o L2 regularización).
+         En nuestro ejemplo de regresión lineal, nuestro modelo tiene 2 parametros.
+         Decimos que tiene 2 grados del libertad.
+         Si queremos un modelo más simple, podemos forzar a que la constante sea 0.
+         En este caso, el modelo será más simple pero quizás no va a generalizar del todo bien.
+         `Debemos encontrar el equilibrio entrenar nuestro modelo con todos los datos y que este sea sencillo/simple para mantener.`
+      1. Selecciona menos atributos/variables para tu modelo.
+      1. Obten más datos.
+      1. Reduce el ruido/limpia los datos. 
+
+Ejemplo de regularización y como es capaz de generalizar mejor que otro modelo sin restricciones.
+![Regularization](./images/ch01_regularization.png)
+1. Underfitting: se puede dar cuando no tienes datos suficientes y el modelo no aprende ningún patrón y por lo tanto tampoco generaliza bien se puede dar cuando no tienes datos suficientes y el modelo no aprende ningún patrón y por lo tanto tampoco generaliza bien. 
+   También se da cuando el modelo es demasiado sencillo y no es capaz de aprender los patrones de los datos.
+   Algunos remedios:
+     1. Más datos, mejores features.
+     1. Modelo más potente con más paramétros. 
+     1. Menos regularización.
+1. Deployment: puedes tener datos y puedes tener buen modelo pero cuando lo pones en producción pueden surgir nuevos problemas. 
+     1. Problemas de seguridad.
+     1. Latencia.
+     1. El modelo se queda obsoleto.
+     1. El modelo consume demasiados recursos etc 
+   La disciplina que se encarga de la operativización de los modelos de ML se llama `MLOps`.
+
+---
+SUPER MEGA CORE:
+Testing and Validation
+El objetivo de un modelo es predecir bien nuevos ejemplos en producción.
+¿Como podemos saber si lo hace bien?
+Podemos ponerlo en producción y medir los resultados.
+Pero no es la mejor decisión porque si el modelo es muy malo, los usuarios se van a quejar.
+
+No debemos esperar a que nuestro modelo generaliza bien, lo debemos medir con datos.
+Por este motivo, cuando yo tengo un dataset para entrenar, lo mejor es "separarlo" en otro dataset que usaré para testear lo bien que generaliza mi modelo.
+
+Dentro de [este script](./example_instance_based_learning.py) hemos usado la función de "train_test_split" para separar nuestro dataset en 2.
+Esto es muy relevante porque voy a usar el dataset de test para ver cual es mi "generalization error/out of sample error".
+Si mi modelo funciona bien sobre el dataset de train y mal sobre el dataset de test, significa que ha overfitteado sobre el dataset de train y por lo tanto es muy
+díficil que haga buenas predicciones en producción (nuevos casos).
+
+Por el otro lado, muchas veces vamos a volver a separar nuestro dataset de train para obtener otro dataset llamado "validation/development set".
+¿Porque?
+A veces tenemos que elegir entre diferentes modelos y queremos que estos generalicen bien.
+El problema viene a que para elegir entre estos modelos y/o hiperparámetros vamos a "consultar" sus resultados.
+
+Si para ellos usamos el dataset de test, en realidad lo que vamos a hacer es acabar "puliendo" el modelo para que ajuste bien este dataset
+pero quizás no generaliza del todo bien. Hacemos como una especia de "overfitting" sobre test.
+
+No es lo ideal.
+
+En cambio, si usamos este validation/development set, podemos hacer todas las pruebas que queramos porque consultaremos el test set sólo unas pocas veces.
+
+En resumen:
+Tengo un dataset de 100 filas. Lo separo en:
+   1. Train set: se usa para entrenar el modelo (por ejemplo 70 filas). Se puede consultar muchas veces.
+   1. Validaiton set: se usa para elegir entre un algoritmo u otro y sus hiperparams (10 filas).  Se puede consultar muchas veces.
+   1. Test set: se usa SÓLO para comprobar que el modelo generaliza bien. Se deben consultar muy pocas veces..
+
+En la práctica, cuando eliges el algoritmo y sus params (usando el dataset de train y validation), volverás a entrenar tu modelo sobre un dataset que contiene X_train y X_validation (80 filas).
+Esto le puede ayudar a mejorar un poco más al modelo.
+
+Nunca debemos usar el X_test para elegir, entrenar o tunear nuestro modelo. Sólo lo usamos para ver que generaliza bien.
+
+![Model selection with holdout dataset](./images/ch01_model_selection.png)
 
 
-
-
-
-
-
-./example_happiness.p
