@@ -1,5 +1,4 @@
 from pathlib import Path
-from numpy import median
 import pandas as pd
 
 
@@ -9,7 +8,12 @@ def load_data():
 
 
 def main():
-    load_data()
+    df = load_data()
+    instance_1 = df.iloc[0, :]
+    target_1 = instance_1.pop("median_house_value")
+    print(instance_1)
+    print(target_1)
+
 
 if __name__ == "__main__":
     main()
