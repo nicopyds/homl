@@ -18,7 +18,10 @@ Vamos a utilizar el dataset de `California Housing Prices`.
 Un dataset que contiene los precios del año 1990 de California.
 
 La idea es hacer un modelo que vaya a predecir los precios medianos de las casas 
-en cada unidad censal por tanto estamos en un problema de regresión.
+en cada unidad censal por tanto estamos en un problema de regresión. los va a tramificar o bien calcular algún umbral (por ejemplo: casas por
+encima de x cantidad de €€).
+
+En este caso, es mejor enfocar el problema como clasificación en vez de regresión.
 
 ---
 
@@ -41,5 +44,18 @@ Algunas referencias muy útiles de scikit-learn
 Dentro de nuestro proyecto, vamos a usar el `RMSE` como métrica.
 
 Mirar el ejemplo de [./example_rmse.py](./example_rmse.py) para entender bien la métrica.
+
+---
+Debemos tener especial cuidado a la hora de enfocar un problema de ML.
+
+Es clave asegurarse y entender bien el uso que le van a dar a nuestras predicciones.
+No tiene sentido, entrenar un modelo de regresión si luego el cliente o consumidor de
+tus scores los va a tramificar o bien calcular algún umbral (por ejemplo: casas por
+encima de x cantidad de €€).
+
+En este caso, es mejor enfocar el problema como clasificación en vez de regresión.
+
+
+
 
 
