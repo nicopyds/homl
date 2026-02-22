@@ -55,7 +55,14 @@ encima de x cantidad de €€).
 
 En este caso, es mejor enfocar el problema como clasificación en vez de regresión.
 
-
-
+---
+Cuando vamos a crear el dataset de test (que sólo usamos para comprobar la capacidad de
+generalización de nuestro modelo), hay varias formas de hacerlo:
+1. Random sampling (que son las 3 formas que tenemos en el [main.py](./main.py).
+   En general funciona muy bien cuando nuestro dataset es grande.
+2. En cambio, si existen algunos grupos de interés cuyo % debemos mantener cuando 
+   el split, es mejor utilizar el stratified sampling.
+   La función de train_test_split de scikil-learn tiene el paramétro de stratify.
+   O tenemos el ejemplo cuando usamos el StratifiedShuffleSplit.
 
 
